@@ -1,0 +1,212 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
+class UserPrefs{
+  static late SharedPreferences _preferences;
+
+  static const isAttendancePendingKey='isAttendancePendingKey';
+  static const latitudeKey='latitude';
+  static const longitudeKey='longitude';
+  static const timeInKey='timeIn';
+  static const successTimeInKey='successTimeIn';
+  static const timeOutKey='timeOut';
+  static const eventKey='event';
+  static const stationIdKey='stationId';
+  static const userIdKey = 'userId';
+  static const attendanceUserIdKey = 'Attendance_UserId';
+  static const eventDateTimeKey = 'EventDateTime';
+  static const attendanceStationsIdKey = 'Attendance_StationsId';
+  static const userNameKey='username';
+  static const tokenKey='token';
+
+  static const designationKey='designation';
+  static const emailKey='email';
+  static const roleKey='role';
+  static const phoneKey='phone';
+  static const reportsToKey='reportsTo';
+
+  static const stationsListKey='stationslistjson';
+  static const profilePicKey='profilePicKey';
+  static const stationNameKey='stationsName';
+  static const firstNameKey='firstname';
+  static const lastNameKey='lastname';
+
+  static const lastSavedAttendance='lastSavedAttendanceDate';
+
+
+  static Future init()async =>
+      _preferences=await SharedPreferences.getInstance();
+
+  static Future clearPendingAttendance()async {
+    _preferences.remove(isAttendancePendingKey);
+    _preferences.remove(latitudeKey);
+    _preferences.remove(longitudeKey);
+    _preferences.remove(timeInKey);
+    _preferences.remove(timeOutKey);
+    _preferences.remove(eventKey);
+    _preferences.remove(eventDateTimeKey);
+    _preferences.remove(attendanceStationsIdKey);
+  }
+
+  static Future clearLoggedInUser()async {
+    _preferences.remove(userIdKey);
+    _preferences.remove(userNameKey);
+    _preferences.remove(emailKey);
+    _preferences.remove(designationKey);
+    _preferences.remove(phoneKey);
+    _preferences.remove(roleKey);
+    _preferences.remove(reportsToKey);
+    _preferences.remove(attendanceUserIdKey);
+    _preferences.remove(profilePicKey);
+    _preferences.remove(stationNameKey);
+    _preferences.remove(firstNameKey);
+    _preferences.remove(lastNameKey);
+    _preferences.remove(lastSavedAttendance);
+  }
+
+  static Future setEmail(String value)async =>
+      _preferences.setString(emailKey, value);
+
+  static Future getEmail()async =>
+      _preferences.getString(emailKey);
+
+
+  static Future setLastSavedAttendanceDate(String value)async =>
+      _preferences.setString(lastSavedAttendance, value);
+
+  static Future getLastSavedAttendanceDate()async =>
+      _preferences.getString(lastSavedAttendance);
+
+
+  static Future setStationName(String value)async =>
+      _preferences.setString(stationNameKey, value);
+
+  static Future getStationName()async =>
+      _preferences.getString(stationNameKey);
+
+  static Future setFirstName(String value)async =>
+      _preferences.setString(firstNameKey, value);
+
+  static Future getFirstName()async =>
+      _preferences.getString(firstNameKey);
+
+  static Future setLastName(String value)async =>
+      _preferences.setString(lastNameKey, value);
+
+  static Future getLastName()async =>
+      _preferences.getString(lastNameKey);
+
+  static Future setProfilePic(String value)async =>
+      _preferences.setString(profilePicKey, value);
+
+  static Future getProfilePic()async =>
+      _preferences.getString(profilePicKey);
+
+  static Future setDesignation(String value)async =>
+      _preferences.setString(designationKey, value);
+
+  static Future getDesignation()async =>
+      _preferences.getString(designationKey);
+
+  static Future setRole(String value)async =>
+      _preferences.setString(roleKey, value);
+
+  static Future getRole()async =>
+      _preferences.getString(roleKey);
+
+  static Future setPhone(String value)async =>
+      _preferences.setString(phoneKey, value);
+
+  static Future getPhone()async =>
+      _preferences.getString(phoneKey);
+
+  static Future setReportsTo(String value)async =>
+      _preferences.setString(reportsToKey, value);
+
+  static Future getReportsTo()async =>
+      _preferences.getString(reportsToKey);
+
+
+  static Future setStations(String value)async =>
+      _preferences.setString(stationsListKey, value);
+
+  static Future getStations()async =>
+      _preferences.getString(stationsListKey);
+
+  static Future removeToken()async =>
+      _preferences.remove(tokenKey);
+
+  static Future setIsAttendancePending(bool value)async =>
+      _preferences.setBool(isAttendancePendingKey, value);
+
+  static Future getIsAttendancePending()async => _preferences.getBool(isAttendancePendingKey);
+
+  static Future setLatitude(double value)async =>
+      _preferences.setDouble(latitudeKey, value);
+
+  static Future getLatitude()async => _preferences.getDouble(latitudeKey);
+
+  static Future setLongitude(double value)async =>
+      _preferences.setDouble(longitudeKey, value);
+
+  static Future getLongitude()async =>
+      _preferences.getDouble(longitudeKey);
+
+  static Future setTimeIn(String value)async =>
+      _preferences.setString(timeInKey, value);
+
+  static Future setSuccessTimeIn(String value)async =>
+      _preferences.setString(successTimeInKey, value);
+
+  static Future getSuccessTimeIn()async =>
+      _preferences.getString(successTimeInKey);
+
+  static Future removeSuccessTimeIn()async =>
+      _preferences.remove(successTimeInKey);
+
+  static Future setToken(String value)async =>
+      _preferences.setString(tokenKey, value);
+
+  static Future setUsername(String value)async =>
+      _preferences.setString(userNameKey, value);
+  
+  static Future getToken()async =>
+    _preferences.getString(tokenKey);
+
+  static Future getUsername()async =>
+      _preferences.getString(userNameKey);
+  
+  static Future getTimeIn()async =>
+      _preferences.getString(timeInKey);
+
+  static Future setTimeOut(String value)async =>
+      _preferences.setString(timeOutKey, value);
+
+  static Future getTimeOut()async =>
+  _preferences.getString(timeOutKey);
+
+
+  static Future setEvent(String value)async =>
+      _preferences.setString(eventKey, value);
+
+  static Future getEvent()async =>
+      _preferences.getString(eventKey);
+
+  static Future setAttendanceStationId(int value)async =>
+      _preferences.setInt(stationIdKey, value);
+
+  static Future getAttendanceStationId()async =>
+      _preferences.getInt(attendanceStationsIdKey);
+
+  static Future setuserId(int value)async =>
+      _preferences.setInt(userIdKey, value);
+
+  static Future getuserId()async =>
+      _preferences.getInt(userIdKey);
+
+  static Future seteventDateTime(String value)async =>
+      _preferences.setString(eventDateTimeKey, value);
+
+  static Future geteventDateTime()async =>
+      _preferences.getString(eventDateTimeKey);
+
+}
