@@ -1,0 +1,140 @@
+For dark theme for flutter
+
+
+first create providers for themes
+*********************************************************************
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+class ThemeProvider extends ChangeNotifier{
+  ThemeMode themeMode=ThemeMode.dark;
+
+  bool get isDarkMode => themeMode == ThemeMode.dark;
+
+  void toggleTheme(bool isOn){
+    themeMode=isOn ? ThemeMode.dark : ThemeMode.light;
+    notifyListeners();
+  }
+}
+
+class MyThemes {
+  static final darkTheme = ThemeData(
+    scaffoldBackgroundColor: Colors.black,
+    colorScheme: const ColorScheme.dark(),
+    cardColor: Colors.white,
+    primaryColor: Colors.black,
+    appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.black,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    ),
+  );
+
+  static final lightTheme = ThemeData(
+    scaffoldBackgroundColor: Colors.white,
+    colorScheme:const ColorScheme.light(),
+    cardColor: Colors.black,
+    primaryColor: Colors.white,
+    appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+
+      ),
+    ),
+  );
+}
+
+
+Second Thing change theme button widget switch
+*********************************************************************
+
+import 'package:flutter/material.dart';
+import 'package:practice/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
+
+class ChangeThemeButtonWidget extends StatelessWidget {
+  const ChangeThemeButtonWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+    return Switch.adaptive(value: themeProvider.isDarkMode,
+        onChanged: (val){
+          final provider=Provider.of<ThemeProvider>(context ,listen:false);
+          provider.toggleTheme(val);
+        }
+    );
+  }
+}
+
+
+Third add Provider library pubspec.yaml under cuportino icons
+*****************************************
+  provider: ^6.0.2
+
+Fourth In main.dart we wrap material app with ChangeNotifierProvider
+*********************************************************************
+
+import 'package:flutter/material.dart';
+import 'package:practice/providers/theme_provider.dart';
+import 'package:practice/screens/home_screen.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    return ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      builder: (context, _) {
+        final themeProvider = Provider.of<ThemeProvider>(context);
+        return MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          themeMode: themeProvider.themeMode,
+          theme: MyThemes.lightTheme,
+          darkTheme: MyThemes.darkTheme,
+          home: const HomeScreen(),
+        );
+      },
+    );
+  }
+}
+
+
+
+At Last this is HomeScreen Code Just in case
+*******************************************
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Hello There",style: TextStyle(fontWeight: FontWeight.w500,
+      color:Theme.of(context).cardColor,
+      ),),
+        elevation: 0.0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        actions: const [
+          ChangeThemeButtonWidget()
+        ],
+
+      ),
+      body: const Center(child: Text("Hello Center Text",style: TextStyle(fontWeight: FontWeight.bold),)),
+    );
+  }
+}
+
+************************************************
+done.
