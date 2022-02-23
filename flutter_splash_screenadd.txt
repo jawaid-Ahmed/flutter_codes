@@ -1,0 +1,25 @@
+Adding splash screen to flutter app
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+#add all below dependancies in pubspec.yaml file
+  flutter_native_splash: ^0.2.8
+
+
+flutter_native_splash:
+  color: "#32b3a4"
+  image: assets/images/icon.png
+  color_dark: "#32b3a4"
+  image_dark: assets/images/icon.png
+  android: true
+  ios: true
+  fill: true
+  android_gravity: fill # make the image fill the screen for android
+  ios_content_mode: scaleAspectFill
+
+#now run these commands in project directory terminal
+# run: flutter clean && flutter pub get && flutter pub run flutter_native_splash:create

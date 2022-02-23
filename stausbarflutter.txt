@@ -1,0 +1,27 @@
+for full screen ui status bar and status bar text color.
+
+add this code to main.dart build method.
+
+SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.grey.withOpacity(0.5),
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness:
+        Platform.isAndroid ? Brightness.dark : Brightness.light,
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarDividerColor: Colors.grey,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+
+
+and add this code main.dart materialapp tag.
+
+theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+          ),
+        ),
+        primarySwatch: Colors.blue,
+      ),
