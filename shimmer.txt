@@ -1,0 +1,81 @@
+import "package:flutter/material.dart";
+import 'package:shared_components/lib.dart';
+import 'package:shimmer/shimmer.dart';
+
+/// This is the app shimmer effect or data loading effect.
+/// you can use it by width, height or aspect ratio.
+Widget appShimmer({
+  double? height,
+  double? width,
+  double? aspectRatio,
+  double? radius,
+  EdgeInsets? margin,
+  Widget? child,
+  bool? enableBorder,
+}) {
+  return Container(
+    height: height,
+    width: width,
+    margin: margin,
+    child: AspectRatio(
+      aspectRatio: aspectRatio ?? 1 / 1,
+      child: Shimmer.fromColors(
+        baseColor: getThemeColor(
+          dark: DarkColors.kGrey200.withAlpha(100),
+          light: Colors.grey.shade300,
+        ),
+        highlightColor: getThemeColor(
+          dark: DarkColors.kGrey200.withAlpha(150),
+          light: Colors.grey.shade200,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(radius ?? 16),
+            color: getThemeColor(
+              light: Colors.grey.shade300,
+              dark: Colors.grey.shade300,
+            ),
+            border: enableBorder != null && enableBorder
+                ? Border.all(
+                    color: getThemeColor(
+                      light: Colors.grey.shade300,
+                      dark: Colors.grey.shade300,
+                    ),
+                  )
+                : null,
+          ),
+          padding: const EdgeInsets.all(16),
+          child: child,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget shimmerList(BuildContext cx, {count = 12}) {
+  return GridView.builder(
+    gridDelegate: listGridDelegate(cx, height: 290),
+    primary: false,
+    padding: const EdgeInsets.all(10),
+    itemBuilder: (context, index) {
+      return appShimmer(radius: 10);
+    },
+    itemCount: count,
+  );
+}
+
+Widget shimmerTable() {
+  return ListView.builder(
+    primary: false,
+    padding: const EdgeInsets.all(10),
+    itemBuilder: (context, index) {
+      return appShimmer(
+        width: double.infinity,
+        height: 50,
+        radius: 8,
+        margin: const EdgeInsets.only(bottom: 8),
+      );
+    },
+    itemCount: AppSettingConstant.kPerPageLimit + 2,
+  );
+}
